@@ -1,0 +1,51 @@
+:host {
+  overflow: visible;
+  z-index: 10;
+  height: 100%;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon{
+  cursor: pointer;
+  user-select: none;
+}
+
+.notification-container {
+  max-height: 300px;
+  overflow: auto;
+  width: 450px;
+  position: absolute;
+  z-index: 11;
+  padding: 0;
+  right: 0;
+}
+
+@media (max-width: 640px) {
+  .notification-container {
+    position: fixed;
+    width: 100%;
+  }
+}
+ 
+.notification-info {
+  white-space: normal;
+  display: flex;
+  align-items: center;
+  font-size: 0.7em;
+  display: flex;
+  padding: 10px;
+}
+
+.notification-msg {
+  width: 95%;
+  line-height: 1.5em;
+}
+
+mat-icon {
+  margin-left: auto;
+}

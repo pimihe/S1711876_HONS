@@ -1,0 +1,81 @@
+<mat-card *ngIf="userNotFound || !userObj" class="loading-display">
+  <mat-spinner *ngIf="!userNotFound"></mat-spinner>
+  <p *ngIf="userNotFound">This user does not exist</p>
+</mat-card>
+<mat-card class="user-info-display" *ngIf="!userNotFound && userObj"  (mouseenter)="hoveringDesc=true;" (mouseleave)="hoveringDesc=false;">
+
+  <div>
+    <div class="profile-pic-container" [style.background]="(userObj.profilePicturePath)?'black':'white'">
+  
+      <img [src]="userObj.profilePicturePath ? userObj.profilePicturePath : 'assets/img/profilePic.png'" alt="Profile image">
+      
+      <span>{{pageUsername}}</span>
+
+      <div class="action-grp">
+        <mat-icon (click)="deleteProfileImage()" *ngIf="userObj.profilePicturePath && AuthService.getDecodedUser().username == pageUsername">close</mat-icon>
+        <label for="file" *ngIf="AuthService.getDecodedUser().username == pageUsername">
+          <mat-icon>build</mat-icon>
+        </label >
+      </div>
+
+      <input 
+        (change)="openProfilePicPreview($event)"
+        style="display:none"
+        type="file" 
+        name="file" 
+        id="file" 
+      >
+    </div>
+    <button mat-raised-button color="primary" [disabled]="followingClicked" *ngIf="AuthService.getDecodedUser().username != userObj.username && !followingUser" (click)="followUser()" class="follow-btn">Follow</button>
+    <button mat-raised-button color="accent" [disabled]="followingClicked" *ngIf="AuthService.getDecodedUser().username != userObj.username && followingUser" (click)="unfollowUser()" class="follow-btn">Unfollow</button>
+  </div>
+  
+  <div class="profile-description">
+    <button mat-mini-fab *ngIf="hoveringDesc && pageUsername == AuthService.getDecodedUser().username" (click)="editDescriptionDisplay()" [disabled]="descriptionUpdating">
+      <mat-icon aria-label="Example icon-button with a heart icon">build</mat-icon>
+    </button>
+    {{userObj.description || "No user description"}}
+  </div>
+
+  <div class="profile-stats">
+    <span>
+      <div>{{userObj.followerCount}}</div>
+      <div>Followers</div>
+    </span>
+    <span>
+      <div>{{userObj.registerDate | date: 'dd/MM/yy'}}</div>
+      <div>Joined</div>
+    </span>
+    <span>
+      <div>{{userObj.registerDate | date: 'dd/MM/yy'}}</div>
+      <div>Last Seen</div>
+    </span>
+    <span>
+      <div>{{userObj.profileViews}}</div>
+      <div>Profile Views</div>
+    </span>
+    <span>
+      <div>{{userObj.uploadCount}}</div>
+      <div>Uploads</div>
+    </span>
+    <span>
+      <div>{{userObj.commentCount}}</div>
+      <div>Comments</div>
+    </span>
+  </div>
+</mat-card>
+
+<div class="profile-tabs-container" *ngIf="userObj">
+
+  <nav mat-tab-nav-bar>
+    <a (click)="Router.navigate(['uploads'], {relativeTo: ActivatedRoute})" mat-tab-link [active]="ActivatedRoute.snapshot.firstChild.routeConfig.path == 'uploads'">Uploads</a>
+    <a (click)="Router.navigate(['comments'], {relativeTo: ActivatedRoute})" mat-tab-link [active]="ActivatedRoute.snapshot.firstChild.routeConfig.path == 'comments'">Comments</a>
+    <a (click)="Router.navigate(['upload-manager'], {relativeTo: ActivatedRoute})" mat-tab-link [active]="ActivatedRoute.snapshot.firstChild.routeConfig.path == 'upload-manager'" *ngIf="AuthService.getDecodedUser().username == pageUsername">Upload Manager</a>
+    <a (click)="Router.navigate(['comment-manager'], {relativeTo: ActivatedRoute})" mat-tab-link [active]="ActivatedRoute.snapshot.firstChild.routeConfig.path == 'comment-manager'" *ngIf="AuthService.getDecodedUser().username == pageUsername">Comment Manager</a>
+    <a (click)="Router.navigate(['place-holder'], {relativeTo: ActivatedRoute})" mat-tab-link [active]="ActivatedRoute.snapshot.firstChild.routeConfig.path == 'place-holder'" *ngIf="AuthService.getDecodedUser().username == pageUsername">Place Holder</a>
+    
+    <!-- <a (click)="Router.navigate(['options'], {relativeTo: ActivatedRoute})" mat-tab-link [active]="ActivatedRoute.snapshot.firstChild.routeConfig.path == 'options'" *ngIf="AuthService.getDecodedUser().username == pageUsername">Options</a> -->
+  </nav>
+  <router-outlet></router-outlet>
+  
+</div>

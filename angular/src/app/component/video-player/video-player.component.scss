@@ -1,0 +1,233 @@
+.wrapper, video {
+  position: relative;
+}
+
+.wrapper * {
+  animation: 0.15s fadein ease-in-out
+}
+
+video {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 682px;
+  object-fit: contain;
+}
+
+.videoFullScreen {
+  max-height: 100%;
+}
+
+.player-controls {
+  display: flex;
+  padding: 0;
+  height: 50px;
+  border-radius: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  z-index: 5;
+  user-select: none;
+  opacity: 0;
+  transition: 0.1s ease-in-out opacity;
+}
+
+.scrub-bar {
+  box-sizing: unset;
+  border-top: 25px solid transparent;
+  border-bottom: 8px solid transparent;
+  cursor: pointer;
+  height: 3px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: -28px;
+  position: absolute;
+  transition: 0.1s ease-in-out all;
+}
+
+.scrub-background {
+  height: 100%;
+  left: 0;
+  right: 0;
+  position: absolute;
+  background-color: rgba($color: #ccc, $alpha: 0.5);
+}
+
+.player-controls:hover .scrub-bar, .scrub-bar:hover {
+  height: 8px;
+  top: -33px;
+}
+
+.scrub-bar :nth-child(1),.scrub-bar :nth-child(2) {
+  width: 0;
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: 10;
+}
+
+.scrub-bar .seeker {
+  background-color: #c2185b;
+  z-index: 12;
+}
+
+.scrub-bar .buffer {
+  background-color: rgba($color: rgb(231, 231, 231), $alpha: 0.6);
+  z-index: 11;
+}
+
+.controls-btn {
+  margin-left: 16px;
+  align-self: center;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-display span:nth-child(1) {
+  border-right: 1px solid #f9f9f9;
+  padding-right: 4px;
+}
+.time-display span:nth-child(2) {
+  border-left: 1px solid #f9f9f9;
+  padding-left: 4px;
+}
+
+@media (max-width: 640px) {
+  .controls-btn {
+    margin-left: 8px;
+  }
+  .player-controls {
+    height: 36px;
+  }
+  .time-display {
+    font-size: 0.7em;
+    display: block;
+  }
+  .time-display span {
+    display: block;
+  }
+  .time-display span:nth-child(1) {
+    border-bottom: 1px solid #f9f9f9;
+  }
+  .time-display span:nth-child(2),.time-display span:nth-child(1) {
+    border-right: 0px;
+    border-left: 0px;
+    padding-left: 0;
+  }
+}
+
+.pause-btn {
+  cursor: pointer;
+}
+
+.time-display {
+  font-size: 0.9em;
+}
+
+.vol-wrapper {
+  font-size: 0.5em;
+  cursor: pointer;
+}
+
+.track-select-wrapper {
+  overflow: visible;
+  position: relative;
+}
+.track-select-wrapper ul {
+  background-color:rgba($color: #000000, $alpha: 0.8);
+  list-style: none;
+  position: absolute;
+  bottom: 100%;
+  border-radius: 2px;
+  z-index: 12;
+  padding: 0;
+  animation: fadein 0.3s ease-in-out;
+}
+.track-select-wrapper ul li {
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 8px 10px;
+  text-align: right;
+}
+.track-select-wrapper ul .active {
+  color: #000;
+  background-color: rgba($color: #fff, $alpha: 0.6);
+  padding-bottom: 4px;
+  border-bottom: 4px solid #c2185b/*#c2185b*/;
+}
+.track-select-wrapper ul li span {
+  font-size: 0.66em;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.track-select-btn {
+  cursor: pointer;
+}
+
+.loading-cover {
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+}
+
+.flex-spacer {
+  flex-grow: 1;
+}
+
+.full-screen-btn {
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.visible{
+  opacity: 1 !important;
+}
+
+.scrub-preview {
+  opacity: 0;
+  transition: 0.1s ease-in-out opacity;
+  position: absolute;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  border-radius: 2px;
+  padding: 2px;
+  z-index: -1;
+}
+
+.scrub-preview .img-container {
+  background-color: rgba($color: #000, $alpha: 1.0);
+  height: 63px;
+  width: 112px;
+  position: relative;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.scrub-preview .img-container img {
+  max-width:100%;
+  max-height:100%;
+  height: 100%; 
+  width: 100%; 
+}
+
+.scrub-preview .scrub-preview-time {
+  position: relative; 
+  width: 100%;
+  text-align: center;
+}

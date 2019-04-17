@@ -1,0 +1,37 @@
+<div class="container" #container>
+
+  <mat-icon 
+  (click)="notificationsVisible = !notificationsVisible" aria-label="Notifications" 
+  *ngIf="notifications.length > 0" 
+  [matBadge]="notifications.length" 
+  matBadgeColor="primary"
+  >
+    notification_important
+  </mat-icon>
+
+  <mat-icon 
+  (click)="notificationsVisible = !notificationsVisible" aria-label="Notifications" 
+  *ngIf="notifications.length == 0"
+  >
+    notification_important
+  </mat-icon>
+
+  <mat-card 
+    *ngIf="componentInited"
+    [class.displayNone]="!notificationsVisible"
+    class="notification-container"
+    [style.top]="getTopOffset()"
+  >
+    <div 
+      *ngFor="let notification of notifications" 
+      class="notification-info"
+      [routerLink]="notification.link ? [notification.link] : []"
+    >
+      <span class="notification-msg">
+        {{notification.msg}}
+      </span>
+      <mat-icon (click)="deleteNotification($event, notification.reference)">close</mat-icon>
+    </div>
+  </mat-card>
+
+</div>

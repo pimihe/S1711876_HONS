@@ -1,0 +1,9 @@
+<section>
+  <h3 md-dialog-title>Confirm</h3>
+  <hr>
+  <p>{{data.question}}</p>
+  <div>
+    <button mat-raised-button (click)="closeDialog(true)" color="primary">Confirm</button>
+    <button mat-raised-button (click)="closeDialog(false)" color="warn">Cancel</button>
+  </div>
+</section>

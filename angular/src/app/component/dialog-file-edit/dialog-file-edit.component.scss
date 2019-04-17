@@ -1,0 +1,115 @@
+mat-form-field {
+  display:block;
+  width: 100%;
+}
+
+form {
+  max-height: 600px;
+}
+
+.tab-content {
+  padding: 20px 18px 0 18px;
+}
+
+.btn-grp {
+  padding: 20px 18px;
+}
+
+.selected-thumb {
+  width: 20%;
+  padding: 2px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+hr {
+  margin: 6px 0;
+}
+
+.thumbnail-select-container  {
+  max-height: 280px;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.thumbnail-select-container img {
+  width: 20%;
+  height: 100%;
+  padding: 3px;
+}
+
+.thumbnail-select-container .thumb-active {
+  border: 3px solid #c2185b;
+  padding: 0;
+}
+
+/*
+.header {
+  background-color: #e7eaec;
+  border-radius: 1px;
+  padding: 9px 15px;
+}
+
+.custom-container {
+  padding: 10px 5px 30px 5px;
+  background-color: #fff;
+  border: 1px solid #e7eaec;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+}
+
+.risk-rating-container {
+  color: #fff;
+  margin: 10px auto;
+  border-radius: 1px;
+  border: 2px solid #e7eaec;
+  padding-bottom: 1px;
+}
+
+.risk-rating-container >>> .g-palette--green {
+  background-color: #e7eaec!important;
+  color: #222e32!important;
+  font-size: 38px;
+  font-weight: 200;
+}
+
+.risk-rating-container >>> .g-icon {
+  font-size: 38px;
+}
+
+.font-size-zero >>> .g-risk-rating__number {
+  font-size: 0em !important;
+}
+*/
+
+/*
+<div class="top-section">
+  <h3>Statistics</h3>
+    <!-- <grv-search-input class="tenantTabSearch" #searchBoxFeature [action]="false" (search)="searchFeatures($event)" [delay]="100">
+    </grv-search-input> -->
+  </div>
+<div *ngFor="let category of statisticsData">
+  <div class="header">
+    {{category.title}}
+  </div>
+  <div class="custom-container">
+    <div class="risk-rating-container" *ngFor="let item of category.values">
+      <ng-container *ngIf="item.title=='event store size' && item.value==0">
+          <grv-risk-rating [heading]="item.title" risk="low" [value]="0" class="font-size-zero"></grv-risk-rating>
+      </ng-container>
+      
+      <ng-container *ngIf="item.title!='event store size' || item.value!=0">
+        <grv-risk-rating [heading]="item.title" risk="low" [value]="item.value.toString()"></grv-risk-rating>
+      </ng-container>
+      
+    </div>
+    <div class="risk-rating-container" *ngFor="let i of [1,2,3,4,5,6,7,8,9]" style="border: none; margin: 0; "></div>
+  </div>
+</div>
+<div *ngIf="!statsLoaded" class="fullWidthLoading">
+  <span class="g-loader"></span>
+</div>
+*/

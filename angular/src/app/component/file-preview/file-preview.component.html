@@ -1,0 +1,10 @@
+<a class="thumbnail-container" [routerLink]="['/view',file.reference]">
+  <img *ngIf="!file.video || file.video.thumbCount > 0" [src]="file.storageServerAddress+'file/'+file.reference+'/'+('0000'+(file.activeThumb)).slice(-5)+'.jpg'" alt='thumbnail' />
+  <mat-icon class='content-type-overlay' *ngIf="!file.video">photo</mat-icon>
+  <span class='content-type-overlay' *ngIf="file.video">{{(file.video.duration*1000)-(1000*60*60) | date:'HH:mm:ss'}}</span>
+  <span class='hits-overlay'>{{file.views}} views</span>
+</a>
+<div class="text-container">
+  <a class='title' [routerLink]="['/view',file.reference]">{{file.title}}</a>
+  <a class='uploader' [routerLink]="['/profile',file.uploader]">{{file.uploader}} | {{(file.uploadDate) | date: 'dd/MM/yy'}}</a>
+</div>

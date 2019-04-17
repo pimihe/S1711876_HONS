@@ -1,0 +1,35 @@
+<form [formGroup]="editFG">
+  <mat-tab-group>
+
+    <mat-tab label="Title">
+      <div class="tab-content">
+        <mat-form-field>
+          <input matInput placeholder="File name" formControlName="title">
+        </mat-form-field>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Thumbs" class="test" *ngIf="file.video">
+      <div class="tab-content">
+        <p>Selected Thumbnail:</p>
+        <img [src]="file.storageServerAddress+'file/'+this.file.reference+'/'+('0000'+(file.activeThumb)).slice(-5)+'.jpg'" alt="" class="selected-thumb">
+        <p>Available Thumbnails:</p>
+        <div class="thumbnail-select-container">
+          <img 
+            *ngFor="let thumbPath of thumbnailPathArr; let i = index;" 
+            [src]="thumbPath" 
+            alt="" 
+            [class.thumb-active]="(i+1) == file.activeThumb"
+            (click)="file.activeThumb = (i+1)"
+          >
+        </div>
+      </div>
+      </mat-tab>
+
+  </mat-tab-group>
+
+  <div class="btn-grp">
+    <button mat-raised-button (click)="(this.editFG.status == 'VALID')?saveChanges():null;" color="primary" type="submit" [disabled]="savingChanges">Confirm</button>
+    <button mat-raised-button (click)="thisDialogRef.close()" color="warn">Cancel</button>
+  </div>
+</form>

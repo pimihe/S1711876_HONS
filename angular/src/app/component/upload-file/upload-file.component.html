@@ -1,0 +1,39 @@
+<mat-expansion-panel #expansionPanel hideToggle="true" *ngIf="templateVars" [disabled]="uploadInProgress || uploadSuccess">
+  <mat-expansion-panel-header>
+    <div class="header-left">{{templateVars.title}}</div>
+
+    <div class="header-middle">
+      <span *ngIf="!uploadSuccess && !processingComplete">{{progress}}</span>
+      <span class="status" *ngIf="templateVars.status === 0">Waiting for conversion</span>
+      <span class="status" *ngIf="templateVars.status === 1">Converting</span>
+      <span class="status" *ngIf="templateVars.status === 2">Waiting for storage</span>
+      <span class="status" *ngIf="templateVars.status === 3">Completed</span>
+    </div>
+
+    <div class="header-right">
+
+      <ng-container *ngIf="!uploadInProgress && !uploadSuccess">
+        <button mat-raised-button color="accent" *ngIf="networkErr" (click)="uploadFile($event,i,j)">Retry</button>
+        <button mat-raised-button color="warn" *ngIf="!noServer || networkErr" (click)="removeFile($event)">Remove</button>
+        <button mat-raised-button color="primary" *ngIf="!noServer" (click)="uploadFile($event,i,j)">Upload</button>
+      </ng-container>
+
+      <ng-container *ngIf="uploadInProgress && !uploadSuccess">
+        <button mat-raised-button color="warn" (click)="cancelUpload($event)">Cancel</button>
+        <button mat-raised-button color="accent" *ngIf="fileErr || networkErr" (click)="uploadFile($event,i,j)">Retry</button>
+      </ng-container>
+
+      <span *ngIf="uploadSuccess && !processingComplete">{{progress}}</span>
+
+      <ng-container *ngIf="processingComplete">
+        <button mat-raised-button color="warn" (click)="removeFile()">Ok</button>
+      </ng-container>
+    </div>
+
+  </mat-expansion-panel-header>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="File name" [(ngModel)]="templateVars.title">
+  </mat-form-field>
+
+</mat-expansion-panel>

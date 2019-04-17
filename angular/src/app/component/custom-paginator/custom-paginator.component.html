@@ -1,0 +1,26 @@
+<mat-card>
+
+  <mat-form-field>
+    <mat-select [(value)]="perPage" (selectionChange)="emitEvent()" placeholder="Items Per Page">
+      <mat-option value="12">12</mat-option>
+      <mat-option value="24">24</mat-option>
+      <mat-option value="48">48</mat-option>
+      <mat-option value="96">96</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span class="flex-spacer"></span>
+  
+  <button mat-button [disabled]="page<2" (click)="page=page-1;emitEvent()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <span>Page {{page}}</span>
+  <button mat-button (click)="page=page+1;emitEvent()" [disabled]="pageLength<perPage">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+
+  <div class="go-to-page-container">
+    <input class="go-to-page-input" type="number" [(ngModel)]="goToPageNo" min="1">
+    <button class="go-to-page-btn" mat-raised-button color="primary" (click)="goToPage()" [disabled]="!goToPageNo || goToPageNo==page || goToPageNo<1"><mat-icon>arrow_right_alt</mat-icon></button>
+  </div>
+</mat-card>

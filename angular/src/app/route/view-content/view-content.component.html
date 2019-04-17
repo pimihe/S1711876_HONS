@@ -1,0 +1,65 @@
+<div class="top-section">
+
+  <div class="content-wrapper">
+    <ng-container *ngIf="file">
+      <app-video-player *ngIf="file && file.video" [video]="file"></app-video-player>
+      <div class="img-wrapper" *ngIf="file && !file.video">
+        <img src="{{file.storageServerAddress}}file/{{file.reference}}/image.{{file.imageType}}">
+      </div>
+    </ng-container>
+    <div *ngIf="!file" class="no-file-placeholder">
+      <mat-spinner *ngIf="!fileDoesNotExist"></mat-spinner>
+      <p *ngIf="fileDoesNotExist">There was an error retrieving this file</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="file">
+
+    <mat-card class="file-info" *ngIf="file">
+
+      <div class="file-info-top">
+        <h3 class="file-title">{{file.title}}</h3>
+        <span class="spacer"></span>
+        <span class="view-count">{{file.views}} views</span>
+      </div>
+
+      <hr>
+
+      <div class="file-info-mid">
+        <img [src]="uploaderObj.profilePicturePath ? uploaderObj.profilePicturePath : 'assets/img/profilePic.png'" alt="" [routerLink]="['/profile',file.uploader]">
+
+        <div class="uploaded-by">
+          <div>From <a [routerLink]="['/profile',file.uploader]" routerLinkActive="router-link-active">{{file.uploader}}</a> on {{(file.uploadDate) | date: 'dd/MM/yy'}}</div>
+          <div>{{uploaderObj.followerCount}} followers</div>
+        </div>
+        <span class="spacer"></span>
+        <div class="like-dislike-container">
+          <div class="btn-container">
+            <div (click)="postRating(true)"><button mat-button [color]="(currentRating) ? 'primary': 'accent'"><mat-icon>thumb_up</mat-icon></button></div>
+            <div (click)="postRating(false)"><button mat-button [color]="(currentRating === false) ? 'primary': 'accent'"><mat-icon>thumb_down</mat-icon></button></div>
+          </div>
+          <span matTooltip="{{file.likeCount}} / {{file.dislikeCount}}">
+            <span [style.width]="(file.likeCount+file.dislikeCount>0) ? (file.likeCount/(file.likeCount+file.dislikeCount)*100)+'%' : '50%'"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="file-info-bottom">
+        <button mat-flat-button color="primary" *ngIf="file.uploader != AuthService.getDecodedUser().username && !followingUploader" (click)="followUser()">Follow</button>
+        <button mat-flat-button color="accent" *ngIf="file.uploader != AuthService.getDecodedUser().username && followingUploader" (click)="unfollowUser()">Unfollow</button>
+        <button mat-flat-button color="primary" *ngIf="file.uploader == AuthService.getDecodedUser().username" (click)="editFileClick()">Edit</button>&nbsp;
+        <span class="spacer"></span>
+        <button mat-flat-button color="warn" *ngIf="file.uploader != AuthService.getDecodedUser().username" (click)="openFileReportDialog()">Report</button>&nbsp;
+        <!-- <button mat-flat-button color="accent">Add to</button> -->
+      </div>
+
+    </mat-card>
+
+  </ng-container>
+
+  <app-file-query [showMoreVisible]="false" headerText="Random Videos" type="video" random="true" [perPage]="6"></app-file-query>
+  <app-file-query [showMoreVisible]="false" headerText="Random Images" type="image" random="true" [perPage]="6"></app-file-query>
+
+  <app-comment-query *ngIf="file" headerText="Comments" [fileRef]="fileRef" [showMoreVisible]="true" [perPage]="12" headerText="Comments"></app-comment-query>
+
+</div>

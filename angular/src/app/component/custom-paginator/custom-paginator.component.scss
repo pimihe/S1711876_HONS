@@ -1,0 +1,33 @@
+mat-card {
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-bottom: 20px;
+}
+button {
+  padding: 0 4px;
+  min-width: unset;
+}
+.go-to-page-container {
+  display: flex;
+}
+.go-to-page-container input {
+  color: #f9f9f9;
+  background-color: #424242;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: 1px #a9a9a9 solid;
+  border-right: 0;
+  width: 44px;
+  padding: 4px 2px;
+  outline-width: 0;
+}
+.go-to-page-container button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+mat-form-field {
+  width: 100px;
+}

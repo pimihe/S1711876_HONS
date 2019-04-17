@@ -1,0 +1,33 @@
+<mat-tab-group [selectedIndex]="(data =='login')? 0 : 1">
+  <mat-tab label="Login" [disabled]="attemptingRegister || attemptingLogin" >
+    <form [formGroup]="loginFG">
+      <mat-form-field>
+        <input matInput placeholder="Username" formControlName="username" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" formControlName="password" type="password" required>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button (click)="(this.loginFG.status == 'VALID')?attemptLogin():null;" color="primary" type="submit" [disabled]="attemptingLogin">Confirm</button>
+        <button mat-raised-button (click)="thisDialogRef.close()" color="warn" [disabled]="attemptingLogin">Cancel</button>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab label="Register" [disabled]="attemptingRegister || attemptingLogin">
+    <form [formGroup]="registerFG">
+      <mat-form-field>
+        <input matInput placeholder="User name" formControlName="username" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" formControlName="password" type="password" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Confirm Password" formControlName="passwordConfirm" type="password" required>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button (click)="(this.registerFG.status == 'VALID')?attemptRegister():null;" color="primary" type="submit" [disabled]="attemptingRegister">Confirm</button>
+        <button mat-raised-button (click)="this.thisDialogRef.close()" color="warn" [disabled]="attemptingRegister">Cancel</button>
+      </div>
+    </form>
+  </mat-tab>
+</mat-tab-group>

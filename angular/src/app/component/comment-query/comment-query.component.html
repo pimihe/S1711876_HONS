@@ -1,0 +1,43 @@
+<mat-card [style.marginBottom]="(showMoreVisible) ? '15px' : 0">
+  <ng-container *ngIf="headerText">
+    <h2>{{headerText}}</h2>
+    <hr>
+  </ng-container>
+  <mat-card-content>
+
+    <div class="new-comment-section" *ngIf="fileRef">
+      <mat-form-field>
+        <textarea matInput placeholder="Leave a comment" [(ngModel)]="newComment" rows="1"></textarea>
+      </mat-form-field>
+      <span *ngIf="newComment" class="new-comment-btn-grp">
+        <button mat-raised-button (click)="newComment=''" color="warn">Cancel</button>
+        <button mat-raised-button (click)="postComment()" color="primary">Post</button>
+      </span>
+    </div>
+
+    <div *ngIf="!getContentFail && contentLoading" class="loading-display">
+      <mat-spinner *ngIf="contentLoading && !getContentFail"></mat-spinner>
+      <ng-template *ngIf="!contentLoading && getContentFail">Failed to load this content</ng-template>
+    </div>
+    <div class="nothing-found-display" *ngIf="commentJson.length == 0 && !contentLoading">No comments yet</div>
+
+    <div *ngFor="let comment of commentJson" class="comment-container">
+      <img [src]="profilePicAddressObj[comment.username] ? profilePicAddressObj[comment.username] : 'assets/img/profilePic.png'" alt="" [routerLink]="['/profile',comment.username]">
+      <div class="commenter"><a [routerLink]="['/profile',comment.username]">{{comment.username}}</a> on {{comment.date | date: 'dd/MM/yy HH:mm'}} <ng-container *ngIf="!fileRef">in <a [routerLink]="['/view',comment.fileRef]">{{comment.fileRef}}</a></ng-container></div>
+      <p>{{comment.comment}}</p>
+      <!-- <div class="comment-btn-grp">
+        <a href="#">Reply</a>
+        <mat-icon>thumb_up</mat-icon>
+        <mat-icon>thumb_down</mat-icon>
+        <a href="#">49 replies</a>
+      </div> -->
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div class="show-more-wrapper" *ngIf="!noMoreComments && !getContentFail && showMoreVisible && commentJson.length >= perPage">
+  <button mat-flat-button (click)="getMore()" [disabled]="gettingMore">
+    <ng-container *ngIf="!gettingMore">show more</ng-container>
+    <mat-spinner *ngIf="gettingMore" diameter="37"></mat-spinner> 
+  </button>
+</div>

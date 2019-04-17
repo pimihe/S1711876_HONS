@@ -1,0 +1,23 @@
+<mat-card [style.marginBottom]="(showMoreVisible) ? '15px' : 0">
+  <ng-container *ngIf="headerText">
+    <h2>{{headerText}}</h2>
+    <hr>
+  </ng-container>
+  <mat-card-content>
+
+    <div *ngIf="!fileJsonFail && contentLoading" class="loading-display">
+      <mat-spinner *ngIf="contentLoading && !fileJsonFail"></mat-spinner>
+      <ng-template *ngIf="!contentLoading && fileJsonFail">Failed to load this content</ng-template>
+    </div>
+    <div class="nothing-found-display" *ngIf="fileJson.length == 0 && !contentLoading">Nothing was found</div>
+    <app-file-preview *ngFor="let file of fileJson" [file]="file"></app-file-preview>
+
+  </mat-card-content>
+</mat-card>
+
+<div class="show-more-wrapper" *ngIf="!noMoreFiles && !fileJsonFail && showMoreVisible && fileJson.length >= perPage">
+  <button mat-flat-button (click)="getMore()" [disabled]="gettingMore">
+    <ng-container *ngIf="!gettingMore">show more</ng-container>
+    <mat-spinner *ngIf="gettingMore" diameter="37"></mat-spinner> 
+  </button>
+</div>

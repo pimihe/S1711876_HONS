@@ -1,0 +1,78 @@
+.row {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.row mat-card {
+  flex-basis: 100%;
+  flex-wrap: wrap;
+}
+
+mat-card h2 {
+  font-size: 1.2em;
+  font-weight: normal;
+  margin: 0px;
+  margin: 0 4px
+}
+
+.upload-input-container {
+  margin: 40px 0 0 0;
+}
+
+.upload-container {
+  flex-basis: 100%;
+  margin: 40px 0 0 0;
+}
+
+.uploads-container {
+  flex-basis: 100%;
+  margin: 40px 20px 0 0;
+}
+
+.upload-container div {
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid #a9a9a9;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.processing-container {
+  flex-basis: 100%;
+  margin: 40px 0 0 20px;
+}
+
+.upload-input-container mat-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.upload-input-container mat-card-content {
+  height: 300px;
+}
+
+.upload-input-container label {
+  cursor: pointer;
+  font-size: 16em;
+  transition: font-size 0.2s ease-in-out;
+}
+
+.upload-input-container label:hover ,.hovering{
+  font-size: 24em!important;
+}
+
+.upload-input-container input {
+  display: none;
+}
+
+.mat-card {
+  padding: 12px 8px;
+}

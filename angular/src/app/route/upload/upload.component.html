@@ -1,0 +1,49 @@
+<div class="row">
+  <mat-card 
+    class="upload-input-container" 
+    (dragleave)="onDragFileOverEnd($event)" 
+    (drop)="onDragFileDrop($event)" 
+    (dragover)="onDragFileOverStart($event)"
+  >
+    <h2>Upload content</h2>
+    <hr>
+    <mat-card-content>
+
+      <label for="file" class="material-icons" [class.hovering]="isHovering">cloud_upload</label>
+      <input 
+        type="file" 
+        name="file" 
+        id="file" 
+        class="inputfile" 
+        (change)="fileChange($event)" 
+        multiple
+      >
+      <!--accept=".png"-->
+  
+    </mat-card-content>
+  
+  </mat-card>
+
+</div>
+
+<div class="row">
+
+  <div class="upload-container">
+    <mat-card>
+      <div>
+        <h2>Uploading Content</h2>
+        <span class="spacer"></span>
+        <button mat-flat-button color="primary" (click)="SharedService.nextUpAllClick()" *ngIf="fileList.length">Upload All</button>
+      </div>
+    </mat-card>
+    <ng-container *ngFor="let file of processingFiles">
+      <app-upload-file [processingFileRef]="file.reference"></app-upload-file>
+    </ng-container>
+    <ng-container *ngFor="let files of fileListCpy; let i = index">
+      <ng-container *ngFor="let file of files; let j = index">
+        <app-upload-file *ngIf="fileListCpy[i][j]" [fileToUp]="fileList[i][j]"></app-upload-file>
+      </ng-container>
+    </ng-container>
+  </div>
+
+</div>

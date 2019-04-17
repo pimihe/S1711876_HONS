@@ -1,0 +1,13 @@
+<mat-expansion-panel hideToggle="true" *ngIf="file" [disabled]="file.status > 4">
+  <mat-expansion-panel-header>
+    <span class="title">{{file.title}}</span>
+    <span class="status" *ngIf="file.status === 0">Waiting for conversion</span>
+    <span class="status" *ngIf="file.status === 1">Converting</span>
+    <span class="status" *ngIf="file.status === 2">Waiting for storage</span>
+    <span class="progress" *ngIf="file.status === 1">{{file.progress}}%</span>
+    <span class="progress" *ngIf="file.status > 4">
+      <button mat-raised-button color="warn" (click)="removeFile($event)">Ok</button>
+    </span>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open</p>
+</mat-expansion-panel>

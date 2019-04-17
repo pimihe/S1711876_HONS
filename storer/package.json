@@ -1,0 +1,23 @@
+{
+  "name": "storeageapp",
+  "version": "1.0.0",
+  "description": "store files here",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pierce Hepburn",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^2.1.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-async-errors": "^2.1.2",
+    "extract-zip": "^1.6.7",
+    "is-jpg": "^2.0.0",
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^5.1.2",
+    "read-chunk": "^3.0.0",
+    "rimraf": "^2.6.2"
+  }
+}

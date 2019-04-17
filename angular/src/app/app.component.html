@@ -1,0 +1,71 @@
+<app-header (toggleSideNav)="sidenav.toggle()"></app-header>
+
+<mat-sidenav-container>
+    
+  <mat-sidenav
+    #sidenav 
+    mode="float"
+    position="end"
+    [(opened)]="sidenavOpened"
+  >
+    <div class="search-container">
+      <input type="text" [(ngModel)]="queryString" tabindex="-1">
+      <button mat-flat-button color="primary" [routerLink]="['/search']" 
+        [queryParams]="{query: queryString || ''}"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    <hr>
+
+    <a *ngIf="AuthService.getDecodedUser()" (click)="sidenavOpened=false" [routerLink]="['/profile',AuthService.getDecodedUser().username]" [routerLinkActive]="['active']">
+      <span>Profile</span>
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <a *ngIf="AuthService.getDecodedUser()" (click)="sidenavOpened=false" [routerLink]="['/upload']" [routerLinkActive]="['active']">
+      <span>Upload</span>
+      <mat-icon>cloud_upload</mat-icon>
+    </a>
+    <a 
+      *ngIf="AuthService.getDecodedUser()"
+      style="cursor: pointer;" 
+      (click)="logout()"
+    >
+      <span>Logout</span>
+      <mat-icon>search</mat-icon>
+    </a>
+    <a 
+      style="cursor: pointer;" 
+      (click)="openRegisterLoginDialog('register')" 
+      *ngIf="!AuthService.getDecodedUser()"
+    >
+      <span>Register</span>
+      <mat-icon>search</mat-icon>
+    </a>
+    <a 
+      style="cursor: pointer;" 
+      (click)="openRegisterLoginDialog('login')" 
+      *ngIf="!AuthService.getDecodedUser()"
+    >
+      <span>Login</span>
+      <mat-icon>search</mat-icon>
+    </a>
+      
+    <!-- 
+    <a href="#"><p>Liked Content</p><span class="glyphicon glyphicon-arrow-up"></span></a>
+    <a href="#"><p>Disliked Content</p><span class="glyphicon glyphicon-arrow-down"></span></a>
+    <a href="#"><p>Favourites</p><span class="glyphicon glyphicon-star"></span></a>
+    <a href="#"><p>My Galleries</p><span class="glyphicon glyphicon-briefcase"></span></a>
+    <a href="#"><p>History</p><span class="glyphicon glyphicon-hourglass"></span></a>
+    <a href="#"><p>Stats</p><span class="glyphicon glyphicon-stats"></span></a>
+    <a href="#"><p>My Comments</p><span class="glyphicon glyphicon-comment"></span></a>
+    -->
+  </mat-sidenav>
+
+  <mat-sidenav-content #sidenavContent>
+    <main>
+      <router-outlet (activate)="onRouteChange($event)"></router-outlet>
+    </main>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

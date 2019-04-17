@@ -1,0 +1,73 @@
+<div 
+  class="wrapper"
+  (mouseenter)="controlsVisible=true"
+  (mouseup)="notSeeking($event)"
+  (mouseleave)="notSeeking($event);controlsVisible=false;displayTrackSelect=false;"
+  (mousemove)="mouseMove($event)"
+  #wrapper
+>
+  <div class="loading-cover" *ngIf="buffering">
+    <mat-spinner></mat-spinner>
+  </div>
+  <video [class.videoFullScreen]="fullScreenActive" (timeupdate)="setProgress($event)" (click)="togglePlayPause()" (dblclick)="toggleFullScreen()" #videoTag></video>
+  <div class="player-controls" [class.visible]="controlsVisible && videoTag" #videoControls>
+    <div 
+      class="scrub-bar"
+      (touchmove)="touchMoveSeek($event)"
+      (mousedown)="seekingStart($event)"
+      (mousemove)="displayPreview($event)"
+      (mouseleave)="scrubPreviewVisible=false;"
+      #progressBarContainer
+    >
+      <span #seeker class="seeker"></span>
+      <span #buffer class="buffer"></span>
+      <span class="scrub-background"></span>
+    </div>
+
+    <span #scrubPreview class="scrub-preview" [class.visible]="scrubPreviewVisible && videoTag">
+      <div class="img-container">
+        <img [src]="video.storageServerAddress+'file/'+video.reference+'/'+('0000'+scrubPreviewThumbNo).slice(-5)+'.jpg'" alt="" width="50px" height="50px" style="position:relative">
+      </div>
+      <div class="scrub-preview-time">{{scrubPreviewTime*10-(1000*60*60) | date:'HH:mm:ss'}}</div>
+    </span>
+    
+    <mat-icon class="controls-btn pause-btn" aria-label="play button" (click)="togglePlayPause()" *ngIf="player.isPaused()">play_arrow</mat-icon>
+    <mat-icon class="controls-btn pause-btn" aria-label="pause button" (click)="togglePlayPause()" *ngIf="!player.isPaused()">pause</mat-icon>
+    
+    <span class="controls-btn time-display">
+      <span>{{player.time()*1000-(1000*60*60) | date:'HH:mm:ss'}}</span>
+      <span>{{player.duration()*1000-(1000*60*60) | date:'HH:mm:ss'}}</span>
+    </span>
+
+    <span class="controls-btn vol-wrapper" *ngIf="audioTrackList">
+      <mat-icon aria-label="volume buton" (click)="videoTagNative.volume = (videoTagNative.volume > 0)? 0:1;" *ngIf="videoTagNative.volume == 1">volume_up</mat-icon>
+      <mat-icon aria-label="volume buton" (click)="videoTagNative.volume = (videoTagNative.volume > 0)? 0:1;" *ngIf="videoTagNative.volume < 1 && videoTagNative.volume > 0">volume_down</mat-icon>
+      <mat-icon aria-label="volume buton" (click)="videoTagNative.volume = (videoTagNative.volume > 0)? 0:1;" *ngIf="videoTagNative.volume == 0">volume_mute</mat-icon>
+      <mat-slider 
+        class="vol-slider" 
+        [(ngModel)]="videoTagNative.volume"
+        [max]="1"
+        [min]="0"
+        [step]="0.01"
+      >
+      </mat-slider>
+    </span>
+    <span class="flex-spacer"></span>
+    <span class="controls-btn track-select-wrapper" (click)="displayTrackSelect=!displayTrackSelect">
+      <ul *ngIf="displayTrackSelect" (mouseleave)="displayTrackSelect=false;">
+        <li 
+          *ngFor="let track of trackList; index as i" 
+          [class.active]="track.height == trackList[this.player.getQualityFor('video')].height"
+          (click)="setQuality(i)"
+        >
+          {{track.width}}x{{track.height}}<span>{{video.video.fps.toFixed(2)}}fps</span>
+        </li>
+      </ul>
+      <mat-icon class="track-select-btn" aria-label="quality button">settings</mat-icon>
+    </span>
+
+    <mat-icon class="controls-btn full-screen-btn" aria-label="Fullscreen button" (click)="toggleFullScreen()" *ngIf="!fullScreenActive">fullscreen</mat-icon>
+    <mat-icon class="controls-btn full-screen-btn" aria-label="Fullscreen button" (click)="toggleFullScreen()" *ngIf="fullScreenActive">fullscreen_exit</mat-icon>
+
+  </div>
+</div>

@@ -1,0 +1,11 @@
+span {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    text-align: center;
+    place-content: center space-around;
+}
+
+p { 
+    margin: 0 10px 0 0;
+}

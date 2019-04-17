@@ -1,0 +1,38 @@
+<mat-toolbar>
+
+    <a [routerLink]="['/']" class="header-title-text">
+      <span>Qwert</span><span>Yuiop</span><span>.com</span>
+    </a>
+  
+    <div class="search-container">
+      <input type="text" [(ngModel)]="queryString">
+      <button mat-flat-button color="primary" [routerLink]="['/search']" 
+        [queryParams]="{query: queryString || ''}"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  
+    <app-notification-container 
+      class="right-item" 
+      *ngIf="AuthService.getDecodedUser()">
+    </app-notification-container>
+  
+    <mat-icon 
+      aria-label="Upload link" 
+      class="right-item" 
+      [routerLink]="['/upload']" 
+      *ngIf="AuthService.getDecodedUser()">
+      cloud_upload
+    </mat-icon>
+
+    <!-- *ngIf="AuthService.getDecodedUser()" -->
+    <mat-icon 
+      aria-label="Expand sidebar button" 
+      class="right-item" 
+      (click)="toggleSideNav.emit()"
+    >
+      menu
+    </mat-icon>
+  
+  </mat-toolbar>

@@ -1,0 +1,66 @@
+:host mat-card:nth-child(1) {
+  border-radius: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+:host mat-card:nth-child(2) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.action-grp {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+.action-grp .mat-flat-button{
+  height: 36px;
+  margin: 10px 5px 10px 0;
+}
+.action-grp .mat-form-field{
+  width: 180px;
+}
+table {
+  animation: fadein 0.3s ease-in-out;
+  width: 100%;
+}
+table a {
+  text-decoration: none;
+  color: #fff;
+}
+.thumbnail-preview {
+  width: 160px;
+  height: 90px;
+  position: fixed;
+  background: #000;
+  top: 0;
+  animation: fadein 0.1s ease-in-out;
+}
+.thumbnail-preview img {
+  max-width:100%;
+  max-height:100%;
+  height: 100%; 
+  width: 100%; 
+  object-fit: contain;
+}
+
+.table-fill-in {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  animation: none;
+}
+
+@media (max-width: 640px) {
+  .hidden-640-column {
+    display: none;
+  }
+  .title-column {
+    max-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } 
+  .thumbnail-preview {
+    margin: -10px 0 0 -10px;
+  }
+}

@@ -1,0 +1,11 @@
+<section>
+  <h3 md-dialog-title>{{data.title}}</h3>
+  <hr>
+  <mat-form-field>
+    <textarea matInput [placeholder]="data.placeholder" [rows]="data.rows || 1" [(ngModel)]="data.existing"></textarea>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button (click)="closeDialog(data.existing)" color="primary">Confirm</button>
+    <button mat-raised-button (click)="closeDialog(false)" color="warn">Cancel</button>
+  </div>
+</section>

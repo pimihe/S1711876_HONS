@@ -1,0 +1,29 @@
+mat-expansion-panel-header {
+  display: flex;
+  margin-top: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.header-left {
+  align-self: center;
+}
+
+.header-middle {
+  flex-grow: 1;
+  align-self: center;
+  text-align: center;
+}
+
+.header-right, .status {
+  align-self: center;
+  text-align: right;
+}
+
+.header-right button {
+  margin-left: 10px;
+}
+
+.mat-expansion-panel-header[aria-disabled=true] {
+  color: #fff;
+}
